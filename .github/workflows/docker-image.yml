@@ -15,13 +15,11 @@ jobs:
       DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
     steps:
-    - uses: actions/checkout@v4
-    - name: Login Docker Hub
-
     - run: |
         echo “${DOCKER_PASSWORD}” | docker login --username ${DOCKER_USERNAME} --password-stdin
-
-    - name: Build the Docker image
+      name: Login Docker Hub
+    - uses: actions/checkout@v4
+      name: Build the Docker image
     - run: fullCommit="${{ github.event.commits[0].id }}" && \
            docker build . --file Dockerfile --tag sffzh/Docker-Aria2NG:$ARIA2_VERSION --tag sffzh/Docker-Aria2NG:${ARIA2_VERSION}-"${fullCommit:0:7}"  &&\
            docker push sffzh/Docker-Aria2NG:$ARIA2_VERSION
