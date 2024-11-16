@@ -17,7 +17,8 @@ jobs:
       ARIA2_VERSION: "1.37.0"
       TEST_STR: ${{vars.TEST_V}}
     steps:
-    - run: echo “${DOCKER_PASSWORD}” | docker login --username ${DOCKER_USERNAME} --password-stdin
+    - run: echo "${TEST_STR}" 
+    - run: echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
       name: Login Docker Hub
     - uses: actions/checkout@v4
       name: Build the Docker image
