@@ -17,23 +17,24 @@ RUN apk update && \
 	apk add --no-cache --update wget && \
 	wget -N --no-check-certificate https://github.com/mayswind/AriaNg/releases/download/1.3.7/AriaNg-1.3.7.zip && \
     unzip AriaNg-*.zip && rm -rf AriaNg-*.zip  && \
-	apk add --update darkhttpd            \
-    && groupadd -r aria                   \
-    && useradd -m -r -g aria aria -u 1000 \
-    && mv /aria2-webui/doc /aria2ng/webui  && rm -rf /aria2-webui      \
-    && mkdir -p /data /conf && chown -R aria:aria /data /conf /aria2ng 
+	apk add --update darkhttpd
 
-COPY  --chown=aria:aira files /conf-copy
+COPY files /conf-copy
 
-RUN chmod +x /conf-copy/start.sh
+RUN addgroup -S aria                      \
+    && adduser -D -S -G aria aria -u 1000 \
+    && mkdir -p /data/.tmp /conf          \
+    && mv /aria2-webui/docs /aria2ng/webui  && rm -rf /aria2-webui   \
+    && chown -R aria:aria /data /conf /aria2ng /conf-copy           \
+    && chmod +x /conf-copy/start.sh
+
 
 USER aria
 
 WORKDIR /
 VOLUME /data /conf
 
-ENV SECRET=edit_/conf/aria2.conf
-EXPOSE 6800
-EXPOSE 8080
+ENV SECRET=edit_$conf/aria2.conf
+EXPOSE 6800 8080
 
 CMD ["/conf-copy/start.sh"]
