@@ -21,7 +21,7 @@ RUN apk update && \
     && groupadd -r aria                   \
     && useradd -m -r -g aria aria -u 1000 \
     && mv /aria2-webui/doc /aria2ng/webui  && rm -rf /aria2-webui      \
-    && mkdir -p /data /conf && chown -R aria:aria /data /conf /aria2ng \
+    && mkdir -p /data /conf && chown -R aria:aria /data /conf /aria2ng 
 
 COPY  --chown=aria:aira files /conf-copy
 
