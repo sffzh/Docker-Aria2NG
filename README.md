@@ -1,8 +1,8 @@
-# 说明
+# sffzh/Docker-Aria2NG
 
 ## 原项目
 
-原项目为[oldiy/Docker-Aria2NG]([oldiy/Docker-Aria2NG](https://github.com/oldiy/Docker-Aria2NG)
+原项目为 [oldiy/Docker-Aria2NG]([oldiy/Docker-Aria2NG](https://github.com/oldiy/Docker-Aria2NG)
 
 相关文档：
 
@@ -11,8 +11,6 @@ https://odcn.top/2019/01/20/2144/
 Docker地址：
 
 https://hub.docker.com/r/oldiy/aria2-ui-ng
-
-
 
 ## Fork说明
 
@@ -27,8 +25,6 @@ https://hub.docker.com/r/oldiy/aria2-ui-ng
 3. 更新AriaNg到最新版本。这个只能手动更新文件内容。我试过用脚本获取最新脚本再修文件，但似乎Github网站有什么处理，用脚本获取版本号经常失败。
 
 4. 在Dockerfile中增加了执行用户`aria`。
-
-
 
 ## 打包镜像说明
 
@@ -54,19 +50,17 @@ sudo docker build -t sffzh/Docker-Aria2NG .
 wget -N --no-check-certificate  https://github.com/sffzh/Docker-Aria2NG/archive/refs/heads/master.zip
 unzip master.zip
 cd  Docker-Aria2NG-master/
-sudo docker build -t sffzh/Docker-Aria2NG . 
+sudo docker build -t sffzh/aria2-ng . 
 ```
 
 > 映像构建所需时间可能较长，主要是由网络连接速度决定的。可以使用高速VPN，或者使用以下命令使构建在后台运行：
 > 
 > ```bash
-> echo "sudo docker build -t sffzh/Docker-Aria2NG . " > build.sh
+> echo "sudo docker build -t sffzh/aria2-ng:latest . " > build.sh
 > chmod +x build.sh
 > nohup sh ./build.sh >> build.log 2>&1 &
 > tail -f build.log
 > ```
-
-
 
 ## 容器初始化说明
 
@@ -99,9 +93,8 @@ aria2的配置文件`aria2.conf`放在 /conf 目录下，映射到宿主机后�
 升级脚本示例：
 
 ```bash
-sudo docker pull sffzh/Docker-Aria2NG
-docker_name=`sudo docker ps --format "table {{.ID}} {{.Names}} {{.Image}}"|grep aria|awk '{pr
-int $2}'`
+sudo docker pull sffzh/aria2-ng:latest
+docker_name=`sudo docker ps --format "table {{.ID}} {{.Names}} {{.Image}}"|grep aria|awk '{print $2}'`
 sudo docker stop $docker_name
 sudo docker rm $docker_name
 docker run -d --name $docker_name -p 8081:8080 -p 6800:6800 -v /Download:/data  sffzh/Docker-Aria2NG
