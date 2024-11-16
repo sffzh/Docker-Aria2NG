@@ -1,6 +1,6 @@
 FROM alpine:edge
 
-MAINTAINER oD <oldiy@163.com>
+MAINTAINER Ryan_Sffzh <ryan@sffzh.cn>
 
 RUN apk update && \
 	apk add --no-cache --update bash && \
@@ -15,23 +15,25 @@ RUN apk update && \
 	mkdir -p /aria2ng && \
 	cd /aria2ng && \
 	apk add --no-cache --update wget && \
-	wget -N --no-check-certificate https://github.com/mayswind/AriaNg/releases/download/1.0.0/AriaNg-1.0.0.zip && unzip AriaNg-1.0.0.zip && rm -rf AriaNg-1.0.0.zip  && \
-	apk del wget && \
-	apk add --update darkhttpd
+	wget -N --no-check-certificate https://github.com/mayswind/AriaNg/releases/download/1.3.7/AriaNg-1.3.7.zip && \
+    unzip AriaNg-*.zip && rm -rf AriaNg-*.zip  && \
+	apk add --update darkhttpd            \
+    && groupadd -r aria                   \
+    && useradd -m -r -g aria aria -u 1000 \
+    && mv /aria2-webui/doc /aria2ng/webui  && rm -rf /aria2-webui      \
+    && mkdir -p /data /conf && chown -R aria:aria /data /conf /aria2ng \
 
-ADD files/start.sh /conf-copy/start.sh
-ADD files/aria2.conf /conf-copy/aria2.conf
-ADD files/on-complete.sh /conf-copy/on-complete.sh
+COPY  --chown=aria:aira files /conf-copy
 
 RUN chmod +x /conf-copy/start.sh
 
+USER aria
+
 WORKDIR /
-VOLUME ["/data"]
-VOLUME ["/conf"]
-ENV SECRET=oldiy
+VOLUME /data /conf
+
+ENV SECRET=edit_/conf/aria2.conf
 EXPOSE 6800
 EXPOSE 8080
-EXPOSE 80
-EXPOSE 81
 
 CMD ["/conf-copy/start.sh"]
