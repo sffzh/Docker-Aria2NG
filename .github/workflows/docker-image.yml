@@ -15,7 +15,7 @@ jobs:
       DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
     steps:
-    - run: echo “${DOCKER_PASSWORD}” | docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+    - run: echo “${DOCKER_PASSWORD}” | docker login --username ${DOCKER_USERNAME} --password-stdin
       name: Login Docker Hub
     - uses: actions/checkout@v4
       name: Build the Docker image
