@@ -14,8 +14,8 @@ jobs:
     env:
       DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      ARIA2_VERSION: ${{ARIA2_VERSION}}
-      TEST_STR: ${{TEST_V}}
+      ARIA2_VERSION: "1.37.0"
+      TEST_STR: ${{vars.TEST_V}}
     steps:
     - run: echo “${DOCKER_PASSWORD}” | docker login --username ${DOCKER_USERNAME} --password-stdin
       name: Login Docker Hub
