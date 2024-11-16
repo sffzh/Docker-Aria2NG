@@ -35,6 +35,7 @@ WORKDIR /
 VOLUME /data /conf
 
 ENV SECRET=edit_$conf/aria2.conf
-EXPOSE 6800 8080
+EXPOSE 6800 
+EXPOSE 8080
 
 CMD ["/conf-copy/start.sh"]
