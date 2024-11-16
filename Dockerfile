@@ -6,7 +6,7 @@ RUN apk update && \
 	apk add --no-cache --update bash && \
 	mkdir -p /conf && \
 	mkdir -p /conf-copy && \
-	mkdir -p /data && \
+	mkdir -p /data /.tmp && \
 	apk add --no-cache --update aria2 && \
 	apk add git && \
 	git clone https://github.com/ziahamza/webui-aria2 /aria2-webui && \
@@ -25,7 +25,7 @@ RUN addgroup -S aria                      \
     && adduser -D -S -G aria aria -u 1000 \
     && mkdir -p /data/.tmp /conf          \
     && mv /aria2-webui/docs /aria2ng/webui  && rm -rf /aria2-webui   \
-    && chown -R aria:aria /data /conf /aria2ng /conf-copy           \
+    && chown -R aria:aria /data /conf /aria2ng /conf-copy  /.tmp     \
     && chmod +x /conf-copy/start.sh
 
 

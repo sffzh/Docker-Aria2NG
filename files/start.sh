@@ -13,4 +13,4 @@ chmod +x /conf/on-complete.sh
 touch /conf/aria2.session
 
 darkhttpd /aria2ng --port 8080 &
-aria2c --conf-path=/conf/aria2.conf  --disable-ipv6 --dir=/data/.tmp  --save-session=/conf/aria2.session
+aria2c --conf-path=/conf/aria2.conf  --disable-ipv6 --dir=/.tmp  --save-session=/conf/aria2.session
