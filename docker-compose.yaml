@@ -3,14 +3,11 @@ name: aria2-ng
 
 services:
     aria2-ng:
-        image: sffzh/aria2-ng:1.37.0.1
+        image: sffzh/aria2-ng:1.37.0
         container_name: sffzh-aria2-ng
         volumes:
             - /volume1/docker/aria2/config:/conf:rw
             - /volume1/Download:/data:rw
-        ports:
-            - "8080"
-            - "6800/tcp"
         restart: unless-stopped
         environment:
             - SECRET=go_eidt_/volume1/docker/aria2/config/aria2.conf
