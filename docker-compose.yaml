@@ -28,4 +28,4 @@ services:
             - “6800/tcp/udp”
         restart: unless-stopped
         environment:
-            - SECRET: go_eidt_/volume1/docker/aria2/config/aria2.conf
+            - SECRET=go_eidt_/volume1/docker/aria2/config/aria2.conf
